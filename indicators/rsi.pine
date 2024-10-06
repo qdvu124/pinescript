@@ -1,0 +1,28 @@
+//@version=5
+indicator("RSI with Levels", overlay = false)
+
+// RSI input parameters
+rsiLength = input.int(14, title="RSI Length")
+overboughtLevel = input.int(70, title="Overbought Level")
+oversoldLevel = input.int(30, title="Oversold Level")
+
+// Calculate RSI
+rsiValue = ta.rsi(close, rsiLength)
+
+// Plot RSI
+plot(rsiValue, title="RSI", color=color.blue, linewidth=2)
+
+// Plot overbought and oversold levels
+hline(overboughtLevel, "Overbought", color=color.red)
+hline(oversoldLevel, "Oversold", color=color.green)
+
+// Color background when RSI is overbought or oversold
+bgcolor(rsiValue > overboughtLevel ? color.new(color.red, 90) : na)
+bgcolor(rsiValue < oversoldLevel ? color.new(color.green, 90) : na)
+
+// Display a label for overbought and oversold signals
+if (rsiValue > overboughtLevel)
+    label.new(bar_index, rsiValue, text="Overbought", style=label.style_labeldown, color=color.red, textcolor=color.white)
+if (rsiValue < oversoldLevel)
+    label.new(bar_index, rsiValue, text="Oversold", style=label.style_labelup, color=color.green, textcolor=color.white)
+

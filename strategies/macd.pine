@@ -1,0 +1,22 @@
+//@version=5
+strategy("MACD Strategy", overlay=true)
+
+// MACD input parameters
+fastLength = input.int(12, title="MACD Fast Length")
+slowLength = input.int(26, title="MACD Slow Length")
+signalSmoothing = input.int(9, title="Signal Smoothing")
+
+// MACD calculation
+[macdLine, signalLine, _] = ta.macd(close, fastLength, slowLength, signalSmoothing)
+
+// Plot MACD and Signal lines
+plot(macdLine, color=color.blue, title="MACD Line")
+plot(signalLine, color=color.orange, title="Signal Line")
+
+// Buy and sell conditions based on MACD crossover
+buyCondition = ta.crossover(macdLine, signalLine)
+sellCondition = ta.crossunder(macdLine, signalLine)
+
+// Optional: plot buy/sell signals on chart
+plotshape(series=buyCondition, location=location.belowbar, color=color.green, style=shape.labelup, text="BUY")
+plotshape(series=sellCondition, location=location.abovebar, color=color.red, style=shape.labeldown, text="SELL")

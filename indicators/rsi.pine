@@ -1,5 +1,5 @@
 //@version=5
-indicator("RSI with Levels", overlay = true)
+indicator("RSI with Levels", overlay = false)
 
 // RSI input parameters
 rsiLength = input.int(14, title="RSI Length")
@@ -12,10 +12,3 @@ rsiValue = ta.rsi(close, rsiLength)
 // Color background when RSI is overbought or oversold
 bgcolor(rsiValue > overboughtLevel ? color.new(color.red, 90) : na)
 bgcolor(rsiValue < oversoldLevel ? color.new(color.green, 90) : na)
-
-// Display a label for overbought and oversold signals
-if (rsiValue > overboughtLevel)
-    label.new(bar_index, rsiValue, text="Overbought", color=color.red, textcolor=color.white)
-if (rsiValue < oversoldLevel)
-    label.new(bar_index, rsiValue, text="Oversold", color=color.green, textcolor=color.white)
-

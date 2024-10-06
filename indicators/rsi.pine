@@ -12,10 +12,6 @@ rsiValue = ta.rsi(close, rsiLength)
 // Plot RSI
 plot(rsiValue, title="RSI", color=color.blue, linewidth=2)
 
-// Plot overbought and oversold levels
-hline(overboughtLevel, "Overbought", color=color.red)
-hline(oversoldLevel, "Oversold", color=color.green)
-
 // Color background when RSI is overbought or oversold
 bgcolor(rsiValue > overboughtLevel ? color.new(color.red, 90) : na)
 bgcolor(rsiValue < oversoldLevel ? color.new(color.green, 90) : na)
